@@ -31,4 +31,22 @@ public class FacesUtils {
                 break;
         }
     }
+    
+    
+    
+    public static void setObjectSession(String nombre, Object objecto){
+         FacesContext context = FacesContext.getCurrentInstance();
+         context.getExternalContext().getSessionMap().put(nombre, objecto);
+    }
+    public static Object getObjectSession(String nombre){
+     FacesContext context = FacesContext.getCurrentInstance();
+         return context.getExternalContext().getSessionMap().get(nombre);
+    }
+    
+    public static void removeObjectSession(String nombre){
+         FacesContext context = FacesContext.getCurrentInstance();
+         context.getExternalContext().getSessionMap().remove(nombre);
+         context.getExternalContext().invalidateSession();
+    
+    }
 }

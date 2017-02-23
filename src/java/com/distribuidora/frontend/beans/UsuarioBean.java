@@ -65,6 +65,7 @@ public class UsuarioBean implements Serializable, IManagedBean<Usuario> {
             usuario.setIdEstado(estadoUsuarioBean.getObject(1));
             uf.create(usuario);
             FacesUtils.showFacesMessage("Exito", "Usuario: " + getUsuario().getNombres() + " " + getUsuario().getApellidos() + "Registrado", 2);
+
         } catch (Exception e) {
             FacesUtils.showFacesMessage("Exito", "Usuario: " + getUsuario().getUsuario() + "Ya existe", 1);
         }
@@ -72,7 +73,22 @@ public class UsuarioBean implements Serializable, IManagedBean<Usuario> {
     }
 
     public String iniciarSesion() {
-        return "";
-    }
+        Usuario u;
 
-}
+        try {
+            u = uf.autenticar(getUsuario());
+            if (u != null) {
+
+                FacesUtils.setObjectSession("usuario", u);
+                FacesUtils.showFacesMessage("Bienvenido", u.getNombres() + " " + u.getApellidos(), 2);
+                return "/seguridad/usuario";
+            }
+            }catch (Exception e){
+                    }
+
+            setUsuario(null);
+            return "";
+
+        }
+
+    }
